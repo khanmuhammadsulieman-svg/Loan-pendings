@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Loan Calculator</title>
+  <style>
+    /* Basic styling for readability */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f8ff;
+    }
+    #loanCalculator {
+      background: #ffffff;
+      padding: 20px;
+      border: 1px solid #cccccc;
+      max-width: 400px;
+      margin: auto;
+    }
+    #loanCalculator h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+    #loanCalculator p {
+      margin: 0.5em 0;
+    }
+    #loanCalculator strong {
+      display: inline-block;
+      width: 130px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loanCalculator">
+    <h2>Loan Details</h2>
+    <p><strong>Lender:</strong> Sulieman Khan</p>
+    <p><strong>Borrower:</strong> M. Abdul Raffay Khan</p>
+    <p><strong>Base Amount:</strong> 70 PKR</p>
+    <p><strong>Days since start:</strong> <span id="days">0</span></p>
+    <p><strong>Markup Percentage:</strong> <span id="markupPercent">0</span>%</p>
+    <p><strong>Total Due:</strong> <span id="amountDue">0.00</span> PKR</p>
+  </div>
+
+  <script>
+    // Calculate days difference and markup on page load
+    window.onload = function() {
+      const baseDate = new Date('2025-11-20');
+      const today = new Date();
+
+      // Compute time difference in milliseconds
+      let diffTime = today - baseDate;
+      // If current date is before the base date, use 0 days
+      if (diffTime < 0) diffTime = 0;
+
+      // Convert milliseconds to full days
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      const baseAmount = 70;
+      const markupPercent = diffDays * 20; // 20% per day
+      const amountDue = baseAmount * (1 + markupPercent / 100);
+
+      // Update HTML with calculated values
+      document.getElementById('days').innerText = diffDays;
+      document.getElementById('markupPercent').innerText = markupPercent;
+      // Format amount to two decimal places
+      document.getElementById('amountDue').innerText = amountDue.toFixed(2);
+    };
+  </script>
+</body>
+</html>
